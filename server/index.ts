@@ -26,7 +26,7 @@ app.use((req, res, next) => {
   const allowedOrigins = [
     'http://localhost:5000',
     'http://localhost:3000',
-    'https://your-netlify-site.netlify.app', // Replace with your actual Netlify URL
+    'https://crossfire-test2.netlify.app/', // Replace with your actual Netlify URL
   ];
   
   const origin = req.headers.origin;
