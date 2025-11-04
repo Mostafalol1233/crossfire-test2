@@ -11,6 +11,9 @@ import { scraper } from "./scraper";
 const upload = multer({ storage: multer.memoryStorage() });
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Ensure storage is initialized
+  await storage.getAllMercenaries().catch(() => {}); // Trigger connection
+  
   // Auth routes
   app.post("/api/auth/login", async (req, res) => {
     try {

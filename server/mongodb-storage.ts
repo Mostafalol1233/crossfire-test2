@@ -138,6 +138,12 @@ export class MongoDBStorage implements IStorage {
     }
   }
 
+  private async ensureConnected() {
+    if (!this.initialized) {
+      await this.connect();
+    }
+  }
+
   private initializeMercenaries() {
     this.mercenaries.set("1", { id: "1", name: "Wolf", image: "https://files.catbox.moe/6npa73.jpeg", role: "Assault" });
     this.mercenaries.set("2", { id: "2", name: "Vipers", image: "https://files.catbox.moe/4il6hi.jpeg", role: "Recon" });
@@ -152,75 +158,99 @@ export class MongoDBStorage implements IStorage {
   }
 
   async getUser(id: string): Promise<User | undefined> {
+    await this.ensureConnected();
     const user = await UserModel.findById(id).lean();
     return user || undefined;
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
+    await this.ensureConnected();
     const user = await UserModel.findOne({ username }).lean();
     return user || undefined;
   }
 
   async createUser(user: InsertUser): Promise<User> {
+    await this.ensureConnected();
     const newUser = await UserModel.create(user);
     return newUser;
   }
 
   async getAllPosts(): Promise<Post[]> {
+    await this.ensureConnected();
     const posts = await PostModel.find().sort({ createdAt: -1 }).lean();
     return posts;
   }
 
   async getPostById(id: string): Promise<Post | undefined> {
+    await this.ensureConnected();
     const post = await PostModel.findById(id).lean();
     return post || undefined;
   }
 
   async createPost(post: InsertPost): Promise<Post> {
+    await this.ensureConnected();
     const newPost = await PostModel.create(post);
     return newPost;
   }
 
   async updatePost(id: string, post: Partial<InsertPost>): Promise<Post | undefined> {
+    await this.ensureConnected();
     const updated = await PostModel.findByIdAndUpdate(id, post, { new: true });
     return updated || undefined;
   }
 
   async deletePost(id: string): Promise<boolean> {
+    await this.ensureConnected();
     const result = await PostModel.findByIdAndDelete(id);
     return !!result;
   }
 
   async incrementPostViews(id: string): Promise<void> {
+    await this.ensureConnected();
     await PostModel.findByIdAndUpdate(id, { $inc: { views: 1 } });
   }
 
   async getCommentsByPostId(postId: string): Promise<Comment[]> {
+    await this.ensureConnected();
     const comments = await CommentModel.find({ postId }).sort({ createdAt: -1 }).lean();
     return comments;
   }
 
   async createComment(comment: InsertComment): Promise<Comment> {
+    await this.ensureConnected();
     const newComment = await CommentModel.create(comment);
     return newComment;
   }
 
   async getAllEvents(): Promise<Event[]> {
+    await this.ensureConnected();
     const events = await EventModel.find().lean();
-    return events;
+    return events.map((event) => ({
+      id: String(event._id),
+      title: event.title,
+      titleAr: event.titleAr,
+      description: event.description,
+      descriptionAr: event.descriptionAr,
+      date: event.date,
+      type: event.type,
+      image: event.image,
+    }));
   }
 
   async createEvent(event: InsertEvent): Promise<Event> {
+    await this.ensureConnected();
     const newEvent = await EventModel.create(event);
     return newEvent;
   }
 
   async deleteEvent(id: string): Promise<boolean> {
+    await this.ensureConnected();
     const result = await EventModel.findByIdAndDelete(id);
     return !!result;
   }
 
   async getAllNews(): Promise<NewsItem[]> {
+    await this.ensureConnected();
     const news = await NewsModel.find().sort({ createdAt: -1 }).lean();
     return news.map((item) => ({
       id: String(item._id),
@@ -239,6 +269,7 @@ export class MongoDBStorage implements IStorage {
   }
 
   async getNewsById(id: string): Promise<NewsItem | undefined> {
+    await this.ensureConnected();
     const item = await NewsModel.findById(id).lean();
     if (!item) return undefined;
     return {
@@ -258,6 +289,7 @@ export class MongoDBStorage implements IStorage {
   }
 
   async createNews(news: Partial<NewsItem>): Promise<NewsItem> {
+    await this.ensureConnected();
     const newNews = await NewsModel.create(news);
     return {
       id: String(newNews._id),
@@ -276,6 +308,7 @@ export class MongoDBStorage implements IStorage {
   }
 
   async updateNews(id: string, news: Partial<NewsItem>): Promise<NewsItem | undefined> {
+    await this.ensureConnected();
     const updated = await NewsModel.findByIdAndUpdate(id, news, { new: true });
     if (!updated) return undefined;
     return {
@@ -295,35 +328,42 @@ export class MongoDBStorage implements IStorage {
   }
 
   async deleteNews(id: string): Promise<boolean> {
+    await this.ensureConnected();
     const result = await NewsModel.findByIdAndDelete(id);
     return !!result;
   }
 
   async getAllMercenaries(): Promise<Mercenary[]> {
+    await this.ensureConnected();
     return Array.from(this.mercenaries.values());
   }
 
   async getAllTickets(): Promise<Ticket[]> {
+    await this.ensureConnected();
     const tickets = await TicketModel.find().sort({ createdAt: -1 }).lean();
     return tickets;
   }
 
   async getTicketById(id: string): Promise<Ticket | undefined> {
+    await this.ensureConnected();
     const ticket = await TicketModel.findById(id).lean();
     return ticket || undefined;
   }
 
   async getTicketsByEmail(email: string): Promise<Ticket[]> {
+    await this.ensureConnected();
     const tickets = await TicketModel.find({ userEmail: email }).sort({ createdAt: -1 }).lean();
     return tickets;
   }
 
   async createTicket(ticket: InsertTicket): Promise<Ticket> {
+    await this.ensureConnected();
     const newTicket = await TicketModel.create(ticket);
     return newTicket;
   }
 
   async updateTicket(id: string, ticket: Partial<InsertTicket>): Promise<Ticket | undefined> {
+    await this.ensureConnected();
     const updated = await TicketModel.findByIdAndUpdate(
       id,
       { ...ticket, updatedAt: new Date() },
@@ -333,121 +373,145 @@ export class MongoDBStorage implements IStorage {
   }
 
   async deleteTicket(id: string): Promise<boolean> {
+    await this.ensureConnected();
     const result = await TicketModel.findByIdAndDelete(id);
     return !!result;
   }
 
   async getTicketReplies(ticketId: string): Promise<TicketReply[]> {
+    await this.ensureConnected();
     const replies = await TicketReplyModel.find({ ticketId }).sort({ createdAt: 1 }).lean();
     return replies;
   }
 
   async createTicketReply(reply: InsertTicketReply): Promise<TicketReply> {
+    await this.ensureConnected();
     const newReply = await TicketReplyModel.create(reply);
     return newReply;
   }
 
   async getAllAdmins(): Promise<Admin[]> {
+    await this.ensureConnected();
     const admins = await AdminModel.find().sort({ createdAt: -1 }).lean();
     return admins;
   }
 
   async getAdminById(id: string): Promise<Admin | undefined> {
+    await this.ensureConnected();
     const admin = await AdminModel.findById(id).lean();
     return admin || undefined;
   }
 
   async getAdminByUsername(username: string): Promise<Admin | undefined> {
+    await this.ensureConnected();
     const admin = await AdminModel.findOne({ username }).lean();
     return admin || undefined;
   }
 
   async createAdmin(admin: InsertAdmin): Promise<Admin> {
+    await this.ensureConnected();
     const newAdmin = await AdminModel.create(admin);
     return newAdmin;
   }
 
   async updateAdmin(id: string, admin: Partial<InsertAdmin>): Promise<Admin | undefined> {
+    await this.ensureConnected();
     const updated = await AdminModel.findByIdAndUpdate(id, admin, { new: true });
     return updated || undefined;
   }
 
   async deleteAdmin(id: string): Promise<boolean> {
+    await this.ensureConnected();
     const result = await AdminModel.findByIdAndDelete(id);
     return !!result;
   }
 
   async getEventById(id: string): Promise<Event | undefined> {
+    await this.ensureConnected();
     const event = await EventModel.findById(id).lean();
     return event || undefined;
   }
 
   async updateEvent(id: string, event: Partial<InsertEvent>): Promise<Event | undefined> {
+    await this.ensureConnected();
     const updated = await EventModel.findByIdAndUpdate(id, event, { new: true });
     return updated || undefined;
   }
 
   async getAllNewsletterSubscribers(): Promise<NewsletterSubscriber[]> {
+    await this.ensureConnected();
     const subscribers = await NewsletterSubscriberModel.find().sort({ createdAt: -1 }).lean();
     return subscribers;
   }
 
   async getNewsletterSubscriberByEmail(email: string): Promise<NewsletterSubscriber | undefined> {
+    await this.ensureConnected();
     const subscriber = await NewsletterSubscriberModel.findOne({ email }).lean();
     return subscriber || undefined;
   }
 
   async createNewsletterSubscriber(subscriber: InsertNewsletterSubscriber): Promise<NewsletterSubscriber> {
+    await this.ensureConnected();
     const newSubscriber = await NewsletterSubscriberModel.create(subscriber);
     return newSubscriber;
   }
 
   async deleteNewsletterSubscriber(id: string): Promise<boolean> {
+    await this.ensureConnected();
     const result = await NewsletterSubscriberModel.findByIdAndDelete(id);
     return !!result;
   }
 
   async getAllProducts(): Promise<Product[]> {
+    await this.ensureConnected();
     const products = await ProductModel.find().sort({ createdAt: -1 }).lean();
     return products;
   }
 
   async getProductById(id: string): Promise<Product | undefined> {
+    await this.ensureConnected();
     const product = await ProductModel.findById(id).lean();
     return product || undefined;
   }
 
   async createProduct(product: InsertProduct): Promise<Product> {
+    await this.ensureConnected();
     const newProduct = await ProductModel.create(product);
     return newProduct;
   }
 
   async updateProduct(id: string, product: Partial<InsertProduct>): Promise<Product | undefined> {
+    await this.ensureConnected();
     const updated = await ProductModel.findByIdAndUpdate(id, product, { new: true });
     return updated || undefined;
   }
 
   async deleteProduct(id: string): Promise<boolean> {
+    await this.ensureConnected();
     const result = await ProductModel.findByIdAndDelete(id);
     return !!result;
   }
 
   async getAllReviews(): Promise<Review[]> {
+    await this.ensureConnected();
     const reviews = await ReviewModel.find().sort({ createdAt: -1 }).lean();
     return reviews;
   }
 
   async getReviewsByProductId(productId: string): Promise<Review[]> {
+    await this.ensureConnected();
     const reviews = await ReviewModel.find({ productId }).sort({ createdAt: -1 }).lean();
     return reviews;
   }
 
   async createReview(review: InsertReview): Promise<Review> {
+    await this.ensureConnected();
     const newReview = await ReviewModel.create(review);
     return newReview;
   }
 
   async deleteReview(id: string): Promise<boolean> {
+    await this.ensureConnected();
     const result = await ReviewModel.findByIdAndDelete(id);
     return !!result;
   }
