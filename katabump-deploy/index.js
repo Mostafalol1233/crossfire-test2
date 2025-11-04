@@ -533,7 +533,14 @@ var MongoDBStorage = class {
     return !!result;
   }
   async getAllMercenaries() {
-    return Array.from(this.mercenaries.values());
+    try {
+      const mercenariesArray = Array.from(this.mercenaries.values());
+      console.log('Fetching mercenaries, count:', mercenariesArray.length);
+      return mercenariesArray;
+    } catch (error) {
+      console.error('Error in getAllMercenaries:', error);
+      return [];
+    }
   }
   async getAllTickets() {
     const tickets = await TicketModel.find().sort({ createdAt: -1 });
@@ -1163,10 +1170,13 @@ async function registerRoutes(app) {
   
   app.get("/api/mercenaries", async (req, res) => {
     try {
+      console.log('GET /api/mercenaries - Request received');
       const mercenaries = await storage.getAllMercenaries();
+      console.log('Mercenaries fetched:', mercenaries.length);
       res.json(mercenaries);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      console.error('Error in /api/mercenaries:', error);
+      res.status(500).json({ error: error.message, stack: error.stack });
     }
   });
   
