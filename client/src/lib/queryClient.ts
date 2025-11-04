@@ -10,11 +10,11 @@ async function throwIfResNotOk(res: Response) {
 function getAuthHeaders(): Record<string, string> {
   const token = localStorage.getItem("adminToken");
   const headers: Record<string, string> = {};
-  
+
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
   }
-  
+
   return headers;
 }
 
@@ -46,7 +46,7 @@ export const getQueryFn: <T>(options: {
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
     const headers = getAuthHeaders();
-    
+
     const res = await fetch(queryKey.join("/") as string, {
       credentials: "include",
       headers,
@@ -60,10 +60,20 @@ export const getQueryFn: <T>(options: {
     return await res.json();
   };
 
+// X-Host backend URL
+const API_BASE_URL = "http://51.75.118.151:25539";
+
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      queryFn: getQueryFn({ on401: "throw" }),
+      queryFn: async ({ queryKey }) => {
+        const url = `${API_BASE_URL}${queryKey[0]}`;
+        const res = await fetch(url);
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      },
       refetchInterval: false,
       refetchOnWindowFocus: false,
       staleTime: Infinity,
