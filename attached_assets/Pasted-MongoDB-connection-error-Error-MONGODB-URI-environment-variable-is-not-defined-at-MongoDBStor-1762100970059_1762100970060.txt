@@ -1,0 +1,59 @@
+MongoDB connection error: Error: MONGODB_URI environment variable is not defined
+    at MongoDBStorage.connect (file:///home/container/index.js:203:17)
+    at new MongoDBStorage (file:///home/container/index.js:195:10)
+    at file:///home/container/index.js:431:15
+4:39:29 PM [express] serving on port 5000
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+Error: MONGODB_URI environment variable is not defined
+    at MongoDBStorage.connect (file:///home/container/index.js:203:17)
+    at new MongoDBStorage (file:///home/container/index.js:195:10)
+    at file:///home/container/index.js:431:15
+Node.js v22.14.0
+container@katabump~ Server marked as offline...
+[KataBump Daemon]: ---------- Detected server process in a crashed state! ----------
+[KataBump Daemon]: Exit code: 1
+[KataBump Daemon]: Out of memory: false
+[KataBump Daemon]: Checking server disk space usage, this could take a few seconds...
+[KataBump Daemon]: Updating process configuration files...
+[KataBump Daemon]: Ensuring file permissions are set correctly, this could take a few seconds...
+container@katabump~ Server marked as starting...
+[KataBump Daemon]: Pulling Docker container image, this could take a few minutes to complete...
+[KataBump Daemon]: Finished pulling Docker container image
+[INFO] Node.js version: v22.14.0
+[INFO] Checking package.json modules...
+container@katabump~ Server marked as running...
+
+up to date, audited 237 packages in 5s
+
+39 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+[INFO] All modules are up to date.
+    __ __      __        ____                      
+   / //_/___ _/ /_____ _/ __ )__  ______ ___  ____ 
+  / ,< / __ `/ __/ __ `/ __  / / / / __ `__ \/ __ \
+ / /| / /_/ / /_/ /_/ / /_/ / /_/ / / / / / / /_/ /
+/_/ |_\__,_/\__/\__,_/_____/\__,_/_/ /_/ /_/ .___/ 
+                                          /_/      
+container@katabump~ node /home/container/index.js
+MongoDB connection error: Error: MONGODB_URI environment variable is not defined
+    at MongoDBStorage.connect (file:///home/container/index.js:203:17)
+    at new MongoDBStorage (file:///home/container/index.js:195:10)
+    at file:///home/container/index.js:431:15
+4:39:40 PM [express] serving on port 5000
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+Error: MONGODB_URI environment variable is not defined
+    at MongoDBStorage.connect (file:///home/container/index.js:203:17)
+    at new MongoDBStorage (file:///home/container/index.js:195:10)
+    at file:///home/container/index.js:431:15
+Node.js v22.14.0
+container@katabump~ Server marked as offline...
+[KataBump Daemon]: ---------- Detected server process in a crashed state! ----------
+[KataBump Daemon]: Exit code: 1
+[KataBump Daemon]: Out of memory: false
+[KataBump Daemon]: Aborting automatic restart, last crash occurred less than 60 seconds ago.

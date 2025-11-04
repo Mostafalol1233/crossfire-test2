@@ -1,0 +1,54 @@
+container@katabump~ Server marked as offline...
+[KataBump Daemon]: Checking server disk space usage, this could take a few seconds...
+[KataBump Daemon]: Updating process configuration files...
+[KataBump Daemon]: Ensuring file permissions are set correctly, this could take a few seconds...
+container@katabump~ Server marked as starting...
+[KataBump Daemon]: Pulling Docker container image, this could take a few minutes to complete...
+[KataBump Daemon]: Finished pulling Docker container image
+[INFO] Node.js version: v22.14.0
+[INFO] Checking package.json modules...
+container@katabump~ Server marked as running...
+
+changed 102 packages, and audited 573 packages in 13s
+
+91 packages are looking for funding
+  run `npm fund` for details
+
+10 vulnerabilities (3 low, 7 moderate)
+To address issues that do not require attention, run:
+  npm audit fix
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+Run `npm audit` for details.
+[INFO] All modules are up to date.
+    __ __      __        ____                      
+   / //_/___ _/ /_____ _/ __ )__  ______ ___  ____ 
+  / ,< / __ `/ __/ __ `/ __  / / / / __ `__ \/ __ \
+ / /| / /_/ / /_/ /_/ / /_/ / /_/ / / / / / / /_/ /
+/_/ |_\__,_/\__/\__,_/_____/\__,_/_/ /_/ /_/ .___/ 
+                                          /_/      
+container@katabump~ node /home/container/index.js
+MongoDB connection error: Error: MONGODB_URI environment variable is not defined
+    at connectMongoDB (file:///home/container/index.js:173:13)
+    at MongoDBStorage.connect (file:///home/container/index.js:202:13)
+    at new MongoDBStorage (file:///home/container/index.js:198:10)
+    at file:///home/container/index.js:422:15
+    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:578:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5)
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+Error: MONGODB_URI environment variable is not defined
+    at connectMongoDB (file:///home/container/index.js:173:13)
+    at MongoDBStorage.connect (file:///home/container/index.js:202:13)
+    at new MongoDBStorage (file:///home/container/index.js:198:10)
+    at file:///home/container/index.js:422:15
+    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:578:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5)
+Node.js v22.14.0
+container@katabump~ Server marked as offline...
+[KataBump Daemon]: ---------- Detected server process in a crashed state! ----------
+[KataBump Daemon]: Exit code: 1
+[KataBump Daemon]: Out of memory: false

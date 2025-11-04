@@ -1,0 +1,72 @@
+═══════════════════════════════════════════════════════════════
+  KATABUMP DEPLOYMENT - QUICK START
+═══════════════════════════════════════════════════════════════
+
+📋 STEPS TO DEPLOY:
+
+1. Create .env file (if it doesn't exist)
+   Copy .env.example to .env
+
+2. Edit .env file
+   - Add your MongoDB URI (REQUIRED)
+   - Set AUTO_SEED=true for first run
+   - Change ADMIN_PASSWORD if needed
+
+3. Run the server
+   node index.js
+
+That's it! ✅
+
+═══════════════════════════════════════════════════════════════
+
+🔧 WHAT HAPPENS AUTOMATICALLY:
+
+✅ Validates your environment
+✅ Connects to MongoDB  
+✅ Auto-seeds events and news (if AUTO_SEED=true)
+✅ Creates admin account
+✅ Starts server on port 5000
+
+═══════════════════════════════════════════════════════════════
+
+📝 EXAMPLE .env FILE:
+
+MONGODB_URI=mongodb+srv://user:pass@cluster.net/?appName=App
+PORT=5000
+AUTO_SEED=true
+ADMIN_PASSWORD=admin123
+
+═══════════════════════════════════════════════════════════════
+
+🔑 DEFAULT LOGIN:
+
+Username: admin
+Password: (value from ADMIN_PASSWORD in .env)
+
+⚠️  CHANGE PASSWORD AFTER FIRST LOGIN!
+
+═══════════════════════════════════════════════════════════════
+
+❓ TROUBLESHOOTING:
+
+Can't connect to MongoDB?
+  → Check MONGODB_URI format
+  → Verify IP whitelist in MongoDB Atlas
+  → Allow 0.0.0.0/0 or add your server IP
+
+No events showing?
+  → Set AUTO_SEED=true in .env
+  → Restart: node index.js
+
+Server won't start?
+  → Make sure .env exists
+  → Check MONGODB_URI is set
+  → Verify port 5000 is available
+
+═══════════════════════════════════════════════════════════════
+
+💡 NEED MORE HELP?
+
+Read: README.md for detailed information
+
+═══════════════════════════════════════════════════════════════

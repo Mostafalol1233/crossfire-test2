@@ -1,0 +1,73 @@
+6:50:10 PM: Netlify Build                                                 
+6:50:10 PM: ────────────────────────────────────────────────────────────────
+6:50:10 PM: ​
+6:50:10 PM: ❯ Version
+6:50:10 PM:   @netlify/build 35.2.11
+6:50:10 PM: ​
+6:50:10 PM: ❯ Flags
+6:50:10 PM:   accountId: 67af400f0481f020ffb84840
+6:50:10 PM:   baseRelDir: true
+6:50:10 PM:   buildId: 69078bb08730e00008fd3bc9
+6:50:10 PM:   deployId: 69078bb08730e00008fd3bcb
+6:50:10 PM: ​
+6:50:10 PM: ❯ Current directory
+6:50:10 PM:   /opt/build/repo
+6:50:10 PM: ​
+6:50:10 PM: ❯ Config file
+6:50:10 PM:   /opt/build/repo/netlify.toml
+6:50:10 PM: ​
+6:50:10 PM: ❯ Context
+6:50:10 PM:   production
+6:50:10 PM: ​
+6:50:10 PM: ❯ Installing extensions
+6:50:10 PM:    - neon
+6:50:10 PM: ​
+6:50:10 PM: ❯ Loading extensions
+6:50:10 PM:    - neon
+6:50:11 PM: ​
+6:50:11 PM: build.command from netlify.toml                               
+6:50:11 PM: ────────────────────────────────────────────────────────────────
+6:50:11 PM: ​
+6:50:11 PM: $ npm run build
+6:50:11 PM: > rest-express@1.0.0 build
+6:50:11 PM: > vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+6:50:11 PM: sh: 1: vite: not found
+6:50:12 PM: Failed during stage 'building site': Build script returned non-zero exit code: 2 (https://ntl.fyi/exit-code-2)
+6:50:12 PM: ​
+6:50:12 PM: "build.command" failed                                        
+6:50:12 PM: ────────────────────────────────────────────────────────────────
+6:50:12 PM: ​
+6:50:12 PM:   Error message
+6:50:12 PM:   Command failed with exit code 127: npm run build (https://ntl.fyi/exit-code-127)
+6:50:12 PM: ​
+6:50:12 PM:   Error location
+6:50:12 PM:   In build.command from netlify.toml:
+6:50:12 PM:   npm run build
+6:50:12 PM: ​
+6:50:12 PM:   Resolved config
+6:50:12 PM:   build:
+6:50:12 PM:     command: npm run build
+6:50:12 PM:     commandOrigin: config
+6:50:12 PM:     environment:
+6:50:12 PM:       - JWT_SECRET
+6:50:12 PM:       - NETLIFY_DATABASE_URL
+6:50:12 PM:       - NETLIFY_DATABASE_URL_UNPOOLED
+6:50:12 PM:       - NODE_ENV
+6:50:12 PM:       - PORT
+6:50:12 PM:     publish: /opt/build/repo/dist/public
+6:50:12 PM:     publishOrigin: config
+6:50:12 PM:   redirects:
+6:50:12 PM:     - force: true
+6:50:12 PM:       from: /api/*
+      status: 200
+      to: https://your-backend-url.katabump.com/api/:splat
+    - from: /assets/*
+      status: 200
+      to: /assets/:splat
+    - from: /*
+      status: 200
+      to: /index.html
+  redirectsOrigin: config
+6:50:12 PM: Build failed due to a user error: Build script returned non-zero exit code: 2
+6:50:12 PM: Failing build: Failed to build site
+6:50:12 PM: Finished processing build request in 18.972s

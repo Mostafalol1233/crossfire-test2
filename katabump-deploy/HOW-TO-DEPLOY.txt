@@ -1,0 +1,83 @@
+╔═══════════════════════════════════════════════════════════════╗
+║                  KATABUMP DEPLOYMENT GUIDE                    ║
+║                                                               ║
+║  Simple 3-Step Process - No Console Commands Needed!         ║
+╚═══════════════════════════════════════════════════════════════╝
+
+STEP 1: Configure Your Environment
+───────────────────────────────────────────────────────────────
+
+1. Create a .env file (copy from .env.example if needed)
+
+2. Edit .env and set your MongoDB URI:
+   MONGODB_URI=mongodb+srv://your_username:your_password@cluster.mongodb.net/?appName=YourApp
+
+3. Set auto-seeding (recommended for first run):
+   AUTO_SEED=true
+
+STEP 2: Run the Server
+───────────────────────────────────────────────────────────────
+
+Just run this ONE command:
+
+    node index.js
+
+That's it! Everything else is automatic.
+
+STEP 3: Access Your Site
+───────────────────────────────────────────────────────────────
+
+Your website is now running!
+
+• Frontend: http://your-server:5000
+• Admin: http://your-server:5000/admin/login
+  - Username: admin
+  - Password: (from ADMIN_PASSWORD in .env)
+
+═══════════════════════════════════════════════════════════════
+
+WHAT HAPPENS AUTOMATICALLY:
+───────────────────────────────────────────────────────────────
+
+✅ Environment validation
+✅ MongoDB connection
+✅ Auto-seeding (5 events + 6 news items)
+✅ Admin account creation
+✅ All images use catbox.moe URLs
+✅ Bilingual content (English/Arabic)
+✅ Server starts on port 5000
+
+═══════════════════════════════════════════════════════════════
+
+TROUBLESHOOTING:
+───────────────────────────────────────────────────────────────
+
+Problem: "MONGODB_URI environment variable is not defined"
+Solution: Make sure .env file exists and has MONGODB_URI set
+
+Problem: MongoDB connection fails
+Solution: 
+  1. Check your connection string format
+  2. Verify IP whitelist in MongoDB Atlas
+  3. Allow 0.0.0.0/0 for testing
+
+Problem: No events or news showing
+Solution: Set AUTO_SEED=true in .env and restart
+
+═══════════════════════════════════════════════════════════════
+
+IMPORTANT NOTES:
+───────────────────────────────────────────────────────────────
+
+⚠️  Change default admin password after first login!
+
+⚠️  AUTO_SEED only runs when collections are empty
+    (safe to leave enabled)
+
+✅  All images hosted on catbox.moe (no uploads needed)
+
+✅  Events and news include Arabic translations
+
+═══════════════════════════════════════════════════════════════
+
+For more details, see README.md

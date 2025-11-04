@@ -1,0 +1,48 @@
+36 PM: ​
+7:01:36 PM: $ npx vite build && npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+7:01:36 PM: npm warn exec The following package was not found and will be installed: vite@7.1.12
+7:01:40 PM: Failed during stage 'building site': Build script returned non-zero exit code: 2 (https://ntl.fyi/exit-code-2)
+7:01:40 PM: failed to load config from /opt/build/repo/vite.config.ts
+7:01:40 PM: error during build:
+7:01:40 PM: Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'vite' imported from /opt/build/repo/node_modules/.vite-temp/vite.config.ts.timestamp-1762102900039-24a35bfb91533.mjs
+7:01:40 PM:     at packageResolve (node:internal/modules/esm/resolve:873:9)
+7:01:40 PM:     at moduleResolve (node:internal/modules/esm/resolve:946:18)
+7:01:40 PM:     at defaultResolve (node:internal/modules/esm/resolve:1188:11)
+7:01:40 PM:     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:708:12)
+7:01:40 PM:     at #cachedDefaultResolve (node:internal/modules/esm/loader:657:25)
+7:01:40 PM:     at ModuleLoader.resolve (node:internal/modules/esm/loader:640:38)
+7:01:40 PM:     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:264:38)
+7:01:40 PM:     at ModuleJob._link (node:internal/modules/esm/module_job:168:49)
+7:01:40 PM: ​
+7:01:40 PM: "build.command" failed                                        
+7:01:40 PM: ────────────────────────────────────────────────────────────────
+7:01:40 PM: ​
+7:01:40 PM:   Error message
+7:01:40 PM:   Command failed with exit code 1: npx vite build && npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist (https://ntl.fyi/exit-code-1)
+7:01:40 PM: ​
+7:01:40 PM:   Error location
+7:01:40 PM:   In build.command from netlify.toml:
+7:01:40 PM:   npx vite build && npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+7:01:40 PM: ​
+7:01:40 PM:   Resolved config
+7:01:40 PM:   build:
+7:01:40 PM:     command: npx vite build && npx esbuild server/index.ts --platform=node
+7:01:40 PM:       --packages=external --bundle --format=esm --outdir=dist
+7:01:40 PM:     commandOrigin: config
+7:01:40 PM:     environment:
+7:01:40 PM:       - JWT_SECRET
+7:01:40 PM:       - NETLIFY_DATABASE_URL
+7:01:40 PM:       - NETLIFY_DATABASE_URL_UNPOOLED
+7:01:40 PM:       - NODE_ENV
+7:01:40 PM:       - PORT
+7:01:40 PM:       - NODE_VERSION
+7:01:40 PM:     publish: /opt/build/repo/dist/public
+7:01:40 PM:     publishOrigin: config
+7:01:40 PM:   redirects:
+7:01:40 PM:     - force: true
+7:01:40 PM:       from: /api/*
+      status: 200
+      to: https://your-backend-url.katabump.com/api/:splat
+    - from: /assets/*
+      status: 200
+      to: 

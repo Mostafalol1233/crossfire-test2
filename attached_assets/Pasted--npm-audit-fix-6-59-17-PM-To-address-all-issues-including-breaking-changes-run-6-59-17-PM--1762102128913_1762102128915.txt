@@ -1,0 +1,48 @@
+   npm audit fix
+6:59:17 PM: To address all issues (including breaking changes), run:
+6:59:17 PM:   npm audit fix --force
+6:59:17 PM: Run `npm audit` for details.
+6:59:17 PM: > rest-express@1.0.0 build
+6:59:17 PM: > vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+6:59:17 PM: sh: 1: vite: not found
+6:59:17 PM: ​
+6:59:17 PM: "build.command" failed                                        
+6:59:17 PM: ────────────────────────────────────────────────────────────────
+6:59:17 PM: ​
+6:59:17 PM:   Error message
+6:59:17 PM:   Command failed with exit code 127: npm install && npm run build (https://ntl.fyi/exit-code-127)
+6:59:17 PM: ​
+6:59:17 PM:   Error location
+6:59:17 PM:   In build.command from netlify.toml:
+6:59:17 PM:   npm install && npm run build
+6:59:17 PM: ​
+6:59:17 PM:   Resolved config
+6:59:17 PM:   build:
+6:59:17 PM:     command: npm install && npm run build
+6:59:17 PM:     commandOrigin: config
+6:59:17 PM:     environment:
+6:59:17 PM:       - JWT_SECRET
+6:59:17 PM:       - NETLIFY_DATABASE_URL
+6:59:17 PM:       - NETLIFY_DATABASE_URL_UNPOOLED
+6:59:17 PM:       - NODE_ENV
+6:59:17 PM:       - PORT
+6:59:17 PM:       - NODE_VERSION
+6:59:17 PM:       - NPM_FLAGS
+6:59:17 PM:     publish: /opt/build/repo/dist/public
+6:59:17 PM:     publishOrigin: config
+6:59:17 PM:   redirects:
+6:59:17 PM:     - force: true
+6:59:18 PM: Failed during stage 'building site': Build script returned non-zero exit code: 2 (https://ntl.fyi/exit-code-2)
+6:59:18 PM:       from: /api/*
+      status: 200
+      to: https://your-backend-url.katabump.com/api/:splat
+    - from: /assets/*
+      status: 200
+      to: /assets/:splat
+    - from: /*
+      status: 200
+      to: /index.html
+  redirectsOrigin: config
+6:59:18 PM: Build failed due to a user error: Build script returned non-zero exit code: 2
+6:59:18 PM: Failing build: Failed to build site
+6:59:18 PM: Finished processing build request in 29.291s

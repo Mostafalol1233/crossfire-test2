@@ -1,0 +1,23 @@
+[build]
+  publish = "dist/public"
+  command = "npm ci && npm run build && cp -r attached_assets dist/public/assets"
+  
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_CONFIG_PRODUCTION = "false"
+
+[[redirects]]
+  from = "/api/*"
+  to = "http://51.75.118.151:20032/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/assets/*"
+  to = "/assets/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
