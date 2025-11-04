@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useTheme } from "./ThemeProvider";
 import { useLanguage } from "./LanguageProvider";
 import { useState } from "react";
+import logoIcon from "@assets/generated_images/Bimora_square_icon_favicon_0b757a34.png";
 
 export function Header() {
   const { theme, toggleTheme } = useTheme();
@@ -25,7 +26,13 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="flex h-16 md:h-20 items-center justify-between gap-4">
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-3">
+            <img 
+              src={logoIcon} 
+              alt="Bimora Logo" 
+              className="h-10 w-10 rounded-md"
+              data-testid="img-logo"
+            />
             <span className="text-2xl font-bold bg-gradient-to-r from-primary to-destructive bg-clip-text text-transparent">
               Bimora
             </span>
