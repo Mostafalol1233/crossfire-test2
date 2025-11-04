@@ -44,34 +44,37 @@ export default function Category() {
     if (!category) return [];
     
     let articles: Article[] = [];
+    const categoryLower = category.toLowerCase();
     
-    if (category.toLowerCase() === "news") {
-      const newsAsArticles: Article[] = newsItems.map(item => ({
-        id: item.id,
-        title: item.title,
-        summary: item.summary || item.content.substring(0, 150),
-        category: item.category,
-        image: item.image,
-        author: item.author,
-        date: item.dateRange || item.date || 'Recent',
-        readingTime: Math.ceil((item.content?.length || 0) / 1000),
-        views: 0,
-        tags: [],
-        featured: item.featured,
-      }));
+    if (categoryLower === "news") {
+      const newsAsArticles: Article[] = newsItems
+        .filter(item => item && item.id && item.title)
+        .map(item => ({
+          id: item.id,
+          title: item.title,
+          summary: item.summary || (item.content ? item.content.substring(0, 150) : ''),
+          category: item.category || 'news',
+          image: item.image || '',
+          author: item.author || 'Unknown',
+          date: item.dateRange || item.date || 'Recent',
+          readingTime: Math.ceil((item.content?.length || 0) / 1000),
+          views: 0,
+          tags: [],
+          featured: item.featured || false,
+        }));
       
       const newsPosts = allPosts.filter(
-        (article) => article.category.toLowerCase() === "news"
+        (article) => article?.category?.toLowerCase() === "news"
       );
       
       articles = [...newsAsArticles, ...newsPosts];
-    } else if (category.toLowerCase() === "events") {
+    } else if (categoryLower === "events") {
       articles = allPosts.filter(
-        (article) => article.category.toLowerCase() === "events"
+        (article) => article?.category?.toLowerCase() === "events"
       );
     } else {
       articles = allPosts.filter(
-        (article) => article.category.toLowerCase() === category.toLowerCase()
+        (article) => article?.category?.toLowerCase() === categoryLower
       );
     }
     
@@ -143,9 +146,19 @@ export default function Category() {
     );
   }
 
+  const validEvents = useMemo(() => {
+    return allEvents.filter(event => 
+      event && 
+      event.id && 
+      event.title && 
+      event.date && 
+      event.type
+    );
+  }, [allEvents]);
+
   return (
     <div className="min-h-screen">
-      {allEvents.length > 0 && <EventsRibbon events={allEvents} />}
+      {validEvents.length > 0 && <EventsRibbon events={validEvents} />}
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
           <main className="lg:col-span-8 space-y-8 md:space-y-12">

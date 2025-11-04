@@ -21,6 +21,31 @@ app.use(express.json({
 }));
 app.use(express.urlencoded({ extended: false }));
 
+// CORS middleware for cross-origin requests
+app.use((req, res, next) => {
+  const allowedOrigins = [
+    'http://localhost:5000',
+    'http://localhost:3000',
+    'https://your-netlify-site.netlify.app', // Replace with your actual Netlify URL
+  ];
+  
+  const origin = req.headers.origin;
+  if (origin && allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  
+  next();
+});
+
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;

@@ -8,7 +8,7 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "http://51.75.118.151:20032/api/:splat"
+  to = "https://server.x-host.cloud/server/09a29a8d/api/:splat"
   status = 200
   force = true
 
