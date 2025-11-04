@@ -1565,19 +1565,9 @@ async function registerRoutes(app) {
 // Main application
 const app = express();
 
-// CORS configuration for Netlify
+// CORS configuration - Allow all origins for now
 app.use((req, res, next) => {
-  const allowedOrigins = [
-    'https://crossfir.netlify.app',
-    'http://localhost:5000',
-    'http://localhost:3000'
-  ];
-  
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-  }
-  
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.header('Access-Control-Allow-Credentials', 'true');
